@@ -172,4 +172,34 @@ main {
 @media (max-width: 679px) {
   .boards { grid-template-columns: 1fr; }
 }
+.keyboard {
+  display: grid;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+.key-row {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.key {
+  padding: 10px;
+  min-width: 32px;
+  text-align: center;
+  border-radius: 6px;
+  background: var(--key);
+  color: var(--text);
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+}
+
+.key.special {
+  min-width: 60px;
+  background: var(--accent);
+  color: #fff;
+}
 
