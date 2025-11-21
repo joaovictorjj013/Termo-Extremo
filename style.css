@@ -202,4 +202,7 @@ main {
   background: var(--accent);
   color: #fff;
 }
+.key.correct  { background: var(--correct); color: #fff; }
+.key.present  { background: var(--present); color: #fff; }
+.key.absent   { background: var(--absent);  color: #fff; }
 
