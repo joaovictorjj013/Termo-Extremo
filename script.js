@@ -405,4 +405,43 @@ function init() {
 }
 
 document.addEventListener("DOMContentLoaded", init);
+/* ===========================
+   Teclado virtual
+   =========================== */
+
+const KEY_LAYOUT = [
+  ["Q","W","E","R","T","Y","U","I","O","P"],
+  ["A","S","D","F","G","H","J","K","L"],
+  ["Z","X","C","V","B","N","M","⌫","ENTER"]
+];
+
+function buildKeyboard() {
+  const kb = document.getElementById("keyboard");
+  kb.innerHTML = "";
+  KEY_LAYOUT.forEach(row => {
+    const rowEl = document.createElement("div");
+    rowEl.className = "key-row";
+    row.forEach(k => {
+      const keyEl = document.createElement("div");
+      keyEl.className = "key";
+      keyEl.textContent = k;
+      if (k === "⌫" || k === "ENTER") keyEl.classList.add("special");
+      keyEl.addEventListener("click", () => onVirtualKey(k));
+      rowEl.appendChild(keyEl);
+    });
+    kb.appendChild(rowEl);
+  });
+}
+
+function onVirtualKey(k) {
+  if (k === "⌫") {
+    guessInput.value = guessInput.value.slice(0, -1);
+  } else if (k === "ENTER") {
+    onSubmit();
+  } else {
+    if (guessInput.value.length < 5) {
+      guessInput.value += k;
+    }
+  }
+}
 
