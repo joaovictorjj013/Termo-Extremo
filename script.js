@@ -268,7 +268,20 @@ function onSubmit() {
 
   // Checa término
   if (allFinished()) {
-    statusMsg.textContent = finishMessage();
+    statusMsg.textContent = finishMessage();function finishMessage() {
+  const solvedCount = boards.filter(b => b.solved).length;
+  const total = boards.length;
+  let msg = "";
+  if (solvedCount === total) {
+    msg = `🎉 Parabéns! Você resolveu todos os ${total} tabuleiros.`;
+  } else {
+    const remaining = total - solvedCount;
+    msg = `Fim de jogo. Você resolveu ${solvedCount}/${total}. Restaram ${remaining}.`;
+  }
+  const secrets = boards.map(b => b.secret).join(" | ");
+  return msg + ` As palavras eram: ${secrets}`;
+}
+
     guessInput.disabled = true;
     submitBtn.disabled = true;
   } else {
