@@ -1,1 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Jogo de Palavras Diário</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Jogo de Palavras Diário</h1>
+    <div class="mode-selector">
+      <button class="mode-btn" data-mode="1">Solo</button>
+      <button class="mode-btn" data-mode="2">Dueto</button>
+      <button class="mode-btn" data-mode="3">Trio</button>
+      <button class="mode-btn" data-mode="4">Quarteto</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="boards" class="boards"></section>
+
+    <section class="controls">
+      <div class="input-row">
+        <input
+          type="text"
+          id="guessInput"
+          maxlength="5"
+          placeholder="Digite uma palavra de 5 letras"
+          autocomplete="off"
+          inputmode="latin"
+        />
+        <button id="submitBtn">Enviar</button>
+      </div>
+      <p id="statusMsg" class="status"></p>
+      <p id="dayInfo" class="day-info"></p>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <small>Palavras mudam diariamente. Um palpite é aplicado em todos os tabuleiros ativos.</small>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
