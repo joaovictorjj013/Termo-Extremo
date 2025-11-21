@@ -159,7 +159,28 @@ function buildBoards() {
  *
  * Trate letras repetidas corretamente usando contagem.
  */
-function applyGuessToBoard(boardIndex, guess) {
+function applyGuessToBoard(boardIndex, guess) {// Atualiza cores do teclado
+for (let c = 0; c < 5; c++) {
+  const ch = guess[c];
+  const keyEl = document.querySelector(`.key:not(.special):contains("${ch}")`);
+  if (!keyEl) continue;
+
+  // Define prioridade: correto > presente > ausente
+  if (result[c] === "correct") {
+    keyEl.classList.remove("present","absent");
+    keyEl.classList.add("correct");
+  } else if (result[c] === "present") {
+    if (!keyEl.classList.contains("correct")) {
+      keyEl.classList.remove("absent");
+      keyEl.classList.add("present");
+    }
+  } else {
+    if (!keyEl.classList.contains("correct") && !keyEl.classList.contains("present")) {
+      keyEl.classList.add("absent");
+    }
+  }
+}
+
   const board = boards[boardIndex];
   const boardEl = boardsContainer.querySelector(`.board[data-index="${boardIndex}"]`);
   const grid = boardEl.querySelector(".grid");
