@@ -6,14 +6,28 @@
  * Lista de palavras válidas (5 letras, pt-BR). Em produção, use uma lista maior.
  * Todas em maiúsculas para simplificar a comparação.
  */
-const WORD_LIST = [
-  "CASAS","LIVRO","CARRO","MOUSE","COPAS","FLORE","ARTEZ","METAL","NOBRE","DENTE",
-  "FELIZ","RISOS","VENTO","FAROL","NINHO","GRAMA","CANTO","MACIO","BRAVO","PESOS",
-  "RUGIR","TODOS","ANTES","DESTA","NOITE","LIMPO","SUAVE","FORTE","LEITE","ROSAI",
-  "VINHO","CASAL","CAMPO","CORPO","CURVA","FIRME","LINHA","MEDIR","MELAO","PLUMA",
-  "PRATO","QUERO","RAIOS","REVER","SALTO","SEIVA","TINTO","TROCA","USINA","VALOR",
-  "VAGAS","ZEBRA","NAVIO","LAMPA","BANDO","PULSO","SABER","MUNDO","PISTA","FUSOS",
-  "GRAUS","NIVEL","TEXTO","MORRO","CUSTO","NORTE","SULCO","LEQUE","DUPLA","TREVO"
+let WORD_LIST = [];
+
+async function carregarPalavras() {
+  try {
+    const resp = await fetch("palavras.txt");
+    const texto = await resp.text();
+    WORD_LIST = texto.split("\n")
+      .map(p => p.trim().toUpperCase())
+      .filter(p => p.length === 5);
+    iniciarJogo();
+  } catch (e) {
+    console.error("Erro ao carregar palavras:", e);
+  }
+}
+
+function iniciarJogo() {
+  // aqui você chama buildBoards() ou init()
+  buildBoards();
+}
+
+document.addEventListener("DOMContentLoaded", carregarPalavras);
+
 ];
 
 // Número de tentativas por tabuleiro
