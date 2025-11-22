@@ -162,8 +162,8 @@ function buildBoards() {
 function applyGuessToBoard(boardIndex, guess) {// Atualiza cores do teclado
 for (let c = 0; c < 5; c++) {
   const ch = guess[c];
-  const keyEl = document.querySelector(`.key:not(.special):contains("${ch}")`);
-  if (!keyEl) continue;
+  const keyEl = Array.from(document.querySelectorAll(".key"))
+  .find(el => el.textContent === ch);
 
   // Define prioridade: correto > presente > ausente
   if (result[c] === "correct") {
