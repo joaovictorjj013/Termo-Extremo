@@ -2,10 +2,6 @@
    Configuração de palavras
    =========================== */
 
-/**
- * Lista de palavras válidas (5 letras, pt-BR). Em produção, use uma lista maior.
- * Todas em maiúsculas para simplificar a comparação.
- */
 let WORD_LIST = [];
 
 async function carregarPalavras() {
@@ -22,16 +18,16 @@ async function carregarPalavras() {
 }
 
 function iniciarJogo() {
-  // aqui você chama buildBoards() ou init()
   buildBoards();
 }
 
-// ✅ Removido o `];` que estava aqui
 document.addEventListener("DOMContentLoaded", carregarPalavras);
 
 // Número de tentativas por tabuleiro
 const MAX_TRIES = 6;
-
+let currentMode = 1;
+let boards = [];
+let dailyKey = "";
 
 /* ===========================
    Utilidades
@@ -144,6 +140,7 @@ function applyGuessToBoard(boardIndex, guess) {
   const grid = boardEl.querySelector(".grid");
   const row = board.tries;
 
+  // Preenche letras da linha
   for (let c = 0; c < 5; c++) {
     const cell = grid.querySelector(`.cell[data-row="${row}"][data-col="${c}"]`);
     cell.textContent = guess[c];
@@ -153,11 +150,13 @@ function applyGuessToBoard(boardIndex, guess) {
   const result = new Array(5).fill("absent");
   const counts = {};
 
+  // Conta letras do segredo
   for (let i = 0; i < 5; i++) {
     const ch = secret[i];
     counts[ch] = (counts[ch] || 0) + 1;
   }
 
+  // Marca corretas
   for (let i = 0; i < 5; i++) {
     if (guess[i] === secret[i]) {
       result[i] = "correct";
@@ -165,6 +164,7 @@ function applyGuessToBoard(boardIndex, guess) {
     }
   }
 
+  // Marca presentes
   for (let i = 0; i < 5; i++) {
     if (result[i] === "correct") continue;
     const ch = guess[i];
@@ -174,6 +174,7 @@ function applyGuessToBoard(boardIndex, guess) {
     }
   }
 
+  // Revela células e atualiza teclado
   for (let c = 0; c < 5; c++) {
     const cell = grid.querySelector(`.cell[data-row="${row}"][data-col="${c}"]`);
     cell.classList.add("revealed", result[c]);
@@ -271,4 +272,5 @@ function onEnterKey(e) {
 function init() {
   submitBtn.addEventListener("click", onSubmit);
   guessInput.addEventListener("keydown", onEnterKey);
-  modeButtons.forEach(btn =>
+  modeButtons.forEach(btn => {
+    btn.addEventListener("click",
