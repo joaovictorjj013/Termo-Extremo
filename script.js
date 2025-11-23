@@ -2,6 +2,10 @@
    Configuração de palavras
    =========================== */
 
+/**
+ * Lista de palavras válidas (5 letras, pt-BR). Em produção, use uma lista maior.
+ * Todas em maiúsculas para simplificar a comparação.
+ */
 let WORD_LIST = [];
 
 async function carregarPalavras() {
@@ -18,16 +22,16 @@ async function carregarPalavras() {
 }
 
 function iniciarJogo() {
+  // aqui você chama buildBoards() ou init()
   buildBoards();
 }
 
+// ✅ Removido o `];` que estava aqui
 document.addEventListener("DOMContentLoaded", carregarPalavras);
 
 // Número de tentativas por tabuleiro
 const MAX_TRIES = 6;
-let currentMode = 1;
-let boards = [];
-let dailyKey = "";
+
 
 /* ===========================
    Utilidades
